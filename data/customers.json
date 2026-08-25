@@ -1,0 +1,14 @@
+[
+    {
+        "customer_id":"C001",
+        "fraud_score":10
+    },
+    {
+        "customer_id":"C002",
+        "fraud_score":20
+    },
+    {
+        "customer_id":"C003",
+        "fraud_score":90
+    }
+]
