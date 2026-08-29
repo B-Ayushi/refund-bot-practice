@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR Support Agent</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --primary: #1f6feb;
+      --primary-dark: #164fb4;
+      --muted: #667085;
+      --danger: #d92d20;
+      --success: #027a48;
+      --border: #e4e7ec;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #eef4ff 0%, #f7f9fc 100%);
+      color: #101828;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .badge {
+      background: #e8f1ff;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input, textarea, button, select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(31,111,235,0.12);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    .response-box {
+      margin-top: 20px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      min-height: 150px;
+    }
+
+    .result-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .summary-item {
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .summary-label {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: #101828;
+    }
+
+    .message-box {
+      margin-top: 14px;
+      background: #eef4ff;
+      border-left: 4px solid var(--primary);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: #1d2939;
+      line-height: 1.5;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .status.success { background: #ecfdf3; color: var(--success); }
+    .status.error { background: #fef3f2; color: var(--danger); }
+    .status.warning { background: #fff7ed; color: #b54708; }
+    .status.info { background: #eef4ff; color: var(--primary-dark); }
+
+    @media (max-width: 720px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>HR Support Agent</h1>
+      <span class="badge">Secure workflow demo</span>
+    </div>
+
+    <div class="panel">
+      <div class="form-grid">
+        <div>
+          <label for="employeeId">Employee ID</label>
+          <input id="employeeId" value="E123" />
+        </div>
+
+        <div>
+          <label for="role">Role</label>
+          <select id="role">
+            <option value="employee">employee</option>
+            <option value="manager">manager</option>
+            <option value="hr_admin">hr_admin</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="targetEmployeeId">Target Employee ID (optional)</label>
+          <input id="targetEmployeeId" placeholder="Leave empty for own records" />
+        </div>
+
+        <div class="full-width">
+          <label for="message">Request</label>
+          <textarea id="message">I want to apply for casual leave next Monday and Tuesday</textarea>
+        </div>
+      </div>
+
+      <button id="submitBtn">Submit request</button>
+
+      <div id="status" class="status" style="display:none"></div>
+      <div id="response" class="response-box">Response will appear here...</div>
+    </div>
+  </div>
+
+  <script>
+    const submitBtn = document.getElementById('submitBtn');
+    const responseBox = document.getElementById('response');
+    const statusBox = document.getElementById('status');
+
+    function formatIntent(intent) {
+      if (!intent || intent === 'unknown') return 'Request not matched';
+      return intent
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function getStatusClass(status) {
+      if (status === 'success') return 'success';
+      if (status === 'forbidden' || status === 'error') return 'error';
+      if (status === 'escalated') return 'warning';
+      return 'info';
+    }
+
+    function renderFriendlyResponse(data) {
+      const intent = data.intent || 'unknown';
+      const status = data.status || 'unknown';
+      const result = data.result || {};
+      const policy = data.policy || {};
+      const rbac = data.rbac || {};
+      const resultMessage = result.message || 'No action details are available yet.';
+      const authorizationMessage = rbac.authorized === false
+        ? 'Access was denied for this role and employee scope.'
+        : 'You are authorized for this workflow.';
+
+      const roleText = rbac.role ? rbac.role : 'Not provided';
+      const actionText = rbac.action ? formatIntent(rbac.action) : 'Not available';
+
+      responseBox.innerHTML = `
+        <div class="result-card">
+          <div class="result-header">
+            <h3 class="result-title">${formatIntent(intent)}</h3>
+            <span class="status ${getStatusClass(status)}">${status}</span>
+          </div>
+
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Intent</span>
+              <span class="summary-value">${formatIntent(intent)}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Role</span>
+              <span class="summary-value">${roleText}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Action</span>
+              <span class="summary-value">${actionText}</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Policy</span>
+              <span class="summary-value">${policy.allowed ? 'Allowed' : 'Blocked'}</span>
+            </div>
+          </div>
+
+          <div class="message-box">
+            <strong>Response:</strong> ${resultMessage}
+            <br><br>
+            <strong>Access:</strong> ${authorizationMessage}
+            ${policy.reason ? `<br><br><strong>Policy note:</strong> ${policy.reason}` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    submitBtn.addEventListener('click', async () => {
+      const payload = {
+        employee_id: document.getElementById('employeeId').value,
+        target_employee_id: document.getElementById('targetEmployeeId').value || null,
+        message: document.getElementById('message').value,
+        role: document.getElementById('role').value
+      };
+
+      statusBox.style.display = 'inline-block';
+      statusBox.textContent = 'Sending...';
+      statusBox.className = 'status info';
+      responseBox.innerHTML = '<div class="result-card">Loading your HR request...</div>';
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.detail || 'Request failed');
+        }
+
+        renderFriendlyResponse(data);
+        statusBox.className = `status ${getStatusClass(data.status || 'success')}`;
+        statusBox.textContent = data.status === 'forbidden' ? 'Blocked' : data.status === 'escalated' ? 'Escalated' : 'Success';
+      } catch (error) {
+        statusBox.className = 'status error';
+        statusBox.textContent = 'Error';
+        responseBox.innerHTML = `
+          <div class="result-card">
+            <div class="result-header">
+              <h3 class="result-title">Request failed</h3>
+            </div>
+            <div class="message-box">
+              ${error.message || 'Something went wrong while processing your request.'}
+            </div>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
