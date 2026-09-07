@@ -1,0 +1,5 @@
+Autonomous Code Improvement Agent using Loop Workflow Pattern
+
+Design and implement a multi-agent system that automatically generates, reviews, and refactors code until predefined quality standards are met.
+
+The system should accept a natural language software requirement as input and produce production-ready code as output through iterative improvement cycles.

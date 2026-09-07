@@ -1,0 +1,9 @@
+LoopAgentWorkflow pattern:
+code writer agent
+code reviewer agent
+code refactorer agent
+
+termination condition:
+quality score>=95 stop
+state["done"]=true
+done >> break the loop and return the answer
