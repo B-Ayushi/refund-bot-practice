@@ -1,0 +1,97 @@
+llm layer -> intelligent intent classifier
+natural language
+
+eg: I am going through really hectic days at my workplace and i am thinking to basically go out somewhere please suggest me good places where i can go for 7 days and also plan the entire trip package for me it should be budget friendly
+
+NORMAL QUERY JSON
+place
+min and max budget [money bracket]
+min and max number of days you want to be ooo [time bracket]
+JSON
+pass down to my hotel agent
+
+Multi agent architecture :
+LOOP AGENT (termination condition: all three satisfied)
+Input Guardrails: 
+prompt injection, jailbreak, malicious prompt, greetings, abuse, violation of rule
+
+sequential agent parallel agent fan out and gather : 
+
+policy agent weather agent 
+
+TWO POSSiBLE OUTCOMES:
+deterministic approach (to check all three should be positive)
+2. identify what is being breached -> user request blocked with a message (generic)
+policy agent -> blocked user request -> another generic message 
+(no break , prompt user about the weather condition (predictively) weather details 
+to change location or ask them to say yes to continue with existing location of choice(their first choice)
+proceed as is 
+NO: 
+take another location of choice from user and continue above steps 
+ )
+
+PS: User
+Plan a 5-day Goa trip under ₹25,000
+Agents
+Budget Agent
+policy agent
+Hotel Agent -> caching (decrease latency) 
+Attraction Agent -> visit /recreation activities 
+Weather Agent -> user first pref (weather also suitable) Instruction
+tools (call) (getWeatherDetails)
+2. Retry + Fallback
+
+If weather API fails:
+
+Primary Weather API
+        ↓
+Failure
+        ↓
+Backup Weather API
+        ↓
+Failure
+        ↓
+Graceful message
+
+Production thinking.
+
+
+Itinerary Agent -> last goal 
+Reviewer Agent -> final goal
+fan out and gather: 
+hotel agent attraction agent 
+
+Output expected : (to reduce hallucination and reinvention of data)
+
+Biggest improvement
+
+Your current design is missing memory.
+
+Suppose user says:
+
+I don't want beaches.
+
+Then later:
+
+Plan Goa trip.
+
+Agent should remember.
+
+Add:
+
+Session Memory
+
+Store:
+
+{
+  "avoid": ["beaches"],
+  "hotel_preference": "3 star"
+}
+
+Now interviewer sees:
+
+Context Management
+Memory
+Personalization
+
+which is advanced AI engineering.
